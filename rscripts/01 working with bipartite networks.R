@@ -1,5 +1,7 @@
 # clear everything in the R environment
 rm(list = ls())
+# restore the library
+renv::restore()
 
 # get the libraries needed
 library(igraph)

@@ -6,22 +6,18 @@ library(cheddar)
 library(tidyverse)
 
 # load the data of the Tuesday Lake foodweb in 1984
-setwd("G:/My Drive/Teaching/Courses/Linking Community and Ecosystem Dynamics/LinkingCommEcosystems2022/R data and scripts/Cheddar_Data")
-TL84<-cheddar::LoadCommunity("./TL84",fn='read.csv')
+TL84<-cheddar::LoadCommunity("data/Cheddar_Data/TL84",fn='read.csv')
 head(TL84)
 attributes(TL84)
-#Show the nodes
+#Inspect the nodes
 nodesTL84<-data.frame(TL84$nodes)
 
 #plot the food web 
 cheddar::PlotWebByLevel(TL84,
-                        y.layout='stagger', #change vertical pos
-                        stagger=0.4, # how much stagger
-                        pch=19, # what symbol
-                        cex=3,  # point size
-                        max.nodes.per.row = 25,
-                        show.nodes.as="both",  # both points and labels
-                        ) 
+                        show.nodes.as="both", 
+                        cex=3, # symbol size
+                        y.layout='stagger')
+                        
 # who is species 38?
 TL84$nodes[38,]
 

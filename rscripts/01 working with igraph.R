@@ -70,3 +70,43 @@ plot(g1,
     vertex.color=ifelse(V(g1)$funcgroup=="P","green","orange"),
     edge.width=E(g1)$interaction_s*3,
     layout=layout_nicely)
+
+# Load required libraries
+library(ggraph)
+library(igraph)
+library(igraphdata)
+data(package="igraphdata")
+data(foodwebs,package="igraphdata")
+Chesapeake <- foodwebs$Chesapeake
+
+# Load the Les Miserables dataset
+
+# Create the network plot using ggraph
+ggraph(foodweb, layout="tree") +  
+  geom_edge_link(aes(edge_alpha = weight), show.legend = FALSE) +  # Links between species
+  geom_node_point(color = "darkorange", size = 5) +  # Nodes representing species
+  geom_node_text(aes(label = name), repel = TRUE, size = 3) +  # Species labels
+  theme_void() +  # Remove background and axes
+  scale_y_reverse() +  # Flip the y-axis to rotate the tree by 180 degrees
+  ggtitle("Chesapeake Food Web")  # Add title
+
+# Create an edge list where the first two columns are species interactions, and the third column is the weight
+species_interactions <- data.frame(
+  predator = c("Species_A", "Species_A", "Species_B", "Species_C", "Species_D"),
+  prey = c("Species_B", "Species_C", "Species_C", "Species_D", "Species_E"),
+  weight = c(5, 2, 3, 7, 4)  # Weight of interaction (e.g., biomass transfer)
+)
+
+# Convert to a graph object
+food_web <- graph_from_data_frame(species_interactions, directed = TRUE)
+
+# Add weights to the edges
+E(food_web)$weight <- species_interactions$weight
+
+ggraph(food_web, layout="tree") +  
+  geom_edge_link(aes(linewidth = weight), show.legend = FALSE) +  # Links between species
+  geom_node_point(color = "darkorange", size = 5) +  # Nodes representing species
+  geom_node_text(aes(label = name), repel = TRUE, size = 3) +  # Species labels
+  theme_void() +  # Remove background and axes
+  scale_y_reverse() +  # Flip the y-axis to rotate the tree by 180 degrees
+  ggtitle("Chesapeake Food Web")  # Add title

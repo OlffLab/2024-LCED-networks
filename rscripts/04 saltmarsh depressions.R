@@ -12,7 +12,7 @@ library(lme4)
 library(lmerTest)
 
 # we work with the following database that you made on monday
-# browseURL("https://docs.google.com/spreadsheets/d/1gAhwMWjA6aD3SMHb0j9X_4xYaxsDBNre6B5XyWDgzzI/edit?usp=sharing")
+browseURL("https://docs.google.com/spreadsheets/d/1gAhwMWjA6aD3SMHb0j9X_4xYaxsDBNre6B5XyWDgzzI/edit?usp=sharing")
 
 # read the data tables from the database
 MetTables<- read_csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vQ2zhCjdrR-4sMpcfvyXunOBdLXKI2VYBnTa8u2Xs-yCTQmLYhE54bl7g9a2-9zRxvgqmCe0RXDuW1X/pub?gid=894288297&single=true&output=csv')
@@ -29,6 +29,7 @@ MetVariables |> dplyr::filter(!is.na(ValidationTable))
 AllData<-FactVegObs |>
   dplyr::left_join(DimGroup,by="Group_ID") |>
   dplyr::left_join(DimPlantSpecies,by="PlantSpecies_ID")
+
 
 names(AllData)
 
@@ -47,8 +48,8 @@ p2 <-AllData |>
        title="Clay layer")
 p2
 p3<- AllData |>
-  group_by(Type,DomPlantName) |>
-  summarize(Count=n()) |>
+  dplyr::group_by(Type,DomPlantName) |>
+  dplyr::summarize(Count=n()) |>
   ggplot(aes(x=Type,y=Count, fill=DomPlantName)) +
   geom_bar(stat="identity") +
   labs(x="Inside or outside depression",
@@ -71,6 +72,7 @@ combined_plot <- (p1 + p2 + p3 + p4) +
   patchwork::plot_annotation(tag_levels = 'a', tag_suffix = ')')  # Automatically label as a), b), c)
 combined_plot
 
+AllData |> dplyr::filter(PlantSpecies_ID=="bare" & Type=="out")
 ##### statistical tests
 # Fit a linear mixed model testing the difference between inside outside depressions, 
 # with a random effect of Point (paired samples were taken at each point, as a block)

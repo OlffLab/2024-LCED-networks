@@ -1,4 +1,5 @@
 #### analysis of the saltmarsh data we collected on monday with the LCED course
+# this is the script of yourname for the LCES course on schier
 
 # clear everything in the R environment
 rm(list = ls())

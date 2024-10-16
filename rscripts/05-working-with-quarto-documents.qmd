@@ -1,5 +1,6 @@
 ---
-title: "Savannna food web diagram with Mermaid"
+title: "Mixing text and code in different languages in Quarto"
+author: "Han Olff"
 format:   
   html:
     mermaid: {}
@@ -7,6 +8,11 @@ editor_options:
   chunk_output_type: console
 ---
 
+## What is quarto?
+This is a quarto document as you can see from the .qmd extension of this file. Quarto is an extension of markdown, a way to render text document with additional features, including chunks of code in different languages. It is a native built-in in R Studio 
+
+
+## Mermaid code in a Quarto document 
 Quarto has a native embedding of Mermaid diagrams. This allows to create flow charts such as a foodweb. For this to work the output format needs to be set to html.
 
 For working with this, it is most handy to set the Render settings (next to Render above this pane) to "Preview in Viewer Pane". Otherwise you need to find the html output file in the folder /scripts/output in your repository and open it in a web browser
@@ -19,7 +25,7 @@ The Mermaid syntax in the Mermaid code chunk below can also be first developed i
 #| eval: true
 library(DiagrammeR)
 ```
-Add Mermaid code chunk: 
+A savanna food web diagram produced by a Mermaid code chunk: 
 ```{mermaid}
 flowchart BT
   A[short grass] --> |R2=0.4|B(Thomson's gazelle) --> I{cheetah}

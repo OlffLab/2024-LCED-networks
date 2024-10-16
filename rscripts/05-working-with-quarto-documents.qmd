@@ -1,0 +1,48 @@
+---
+title: "Savannna food web diagram with Mermaid"
+format:   
+  html:
+    mermaid: {}
+editor_options: 
+  chunk_output_type: console
+---
+
+Quarto has a native embedding of Mermaid diagrams. This allows to create flow charts such as a foodweb. For this to work the output format needs to be set to html.
+
+For working with this, it is most handy to set the Render settings (next to Render above this pane) to "Preview in Viewer Pane". Otherwise you need to find the html output file in the folder /scripts/output in your repository and open it in a web browser
+
+The Mermaid syntax in the Mermaid code chunk below can also be first developed in the online [Mermaid Live Editor](https://mermaid.live/), and after this copying it to a script like this. 
+
+```{r libraries}
+#| label: setup 
+#| include: false
+#| eval: true
+library(DiagrammeR)
+```
+Add Mermaid code chunk: 
+```{mermaid}
+flowchart BT
+  A[short grass] --> |R2=0.4|B(Thomson's gazelle) --> I{cheetah}
+  A ==important==> C(wildebeest) --> J{lion}
+  D[tall grass] --> E(zebra) --> J
+  D --> F(buffalo) --> J
+  D --> G(elephant)
+  H[trees] --> G
+```
+Add an R code chunk; for showing the code in the output, use echo=TRUE
+```{r echo=FALSE}
+# Set seed for reproducibility
+set.seed(123)
+
+# Generate 1000 random numbers from a normal distribution
+data <- rnorm(1000, mean = 0, sd = 1)
+
+# Create a histogram
+hist(data, 
+     breaks = 30, 
+     main = "Histogram of Normal Distribution", 
+     xlab = "Value", 
+     col = "lightblue", 
+     border = "black", 
+     probability = TRUE)
+```

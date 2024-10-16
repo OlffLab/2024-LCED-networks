@@ -1,0 +1,29 @@
+---
+title: "Savannna food web diagram with Mermaid"
+format:   
+  html:
+    mermaid: {}
+---
+
+Quarto has a native embedding of Mermaid diagrams. This allows to create flow charts such as a foodweb. For this to work the output format needs to be set to html.
+
+For this it is best to set the Render settings (next to Render above this pane) to "Preview in Viewer Pane"
+
+The mermaid syntax can also be developed in the online [Mermaid Live Editor](https://mermaid.live/)
+
+```{r libraries}
+#| label: setup 
+#| include: false
+#| eval: true
+library(DiagrammeR)
+```
+
+```{mermaid}
+flowchart BT
+  A[short grass] --> |R2=0.4|B(Thomson's gazelle) --> I{cheetah}
+  A ==important==> C(wildebeest) --> J{lion}
+  D[tall grass] --> E(zebra) --> J
+  D --> F(buffalo) --> J
+  D --> G(elephant)
+  H[trees] --> G
+```

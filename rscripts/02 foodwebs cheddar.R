@@ -10,8 +10,11 @@ library(tidyverse)
 TL84<-cheddar::LoadCommunity("data/Cheddar_Data/TL84",fn='read.csv')
 head(TL84)
 attributes(TL84)
+class(TL84)
+
 #Inspect the nodes
 nodesTL84<-data.frame(TL84$nodes)
+linksTL84<-data.frame(TL84$trophic.links)
 
 #plot the food web 
 cheddar::PlotWebByLevel(TL84,

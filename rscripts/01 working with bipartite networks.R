@@ -11,7 +11,7 @@ library(tidyverse)
 # get the dataset Ollerton 2003 needed
 # inspect which examples data are included in bipartite
 data(package="bipartite")
-data("ollerton2003",package="bipartite") # get the dataset from the matrix
+data("ollerton2003",package="bipartite") # get the dataset 
 class(ollerton2003)
 
 # visualize the ollerton2003 network
@@ -63,8 +63,7 @@ slope.bipartite(d_ollerton2003,plot.it=T)
 
 # move the data to igraph format
 class(small1976)
-d1_small1976<-igraph::graph_from_incidence_matrix(small1976,
-                                                  weighted = T)
+d1_small1976<-igraph::graph_from_incidence_matrix(small1976, weighted=T)
 class(d1_small1976)
 plot.igraph(d1_small1976,
             layout=layout.circle,

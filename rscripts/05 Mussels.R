@@ -22,7 +22,7 @@ d_M     =  0.02       # g/g/h Density dependent mortality rate of the mussels  C
 k_M     =  150        # g/m2  Effect of density on mortality  Guestimated
 
 # Spatial movement parameters
-D       =  0.0005     # m2/h  The diffusion constant describing the movement of mussels
+D       =  0.005     # m2/h  The diffusion constant describing the movement of mussels
 V       =  0.1*60*60  # m/h   Tidal advection constant(0.1 m/s * 60 sec * 60 min)
 
 # The speeding constant Phi 
@@ -87,6 +87,8 @@ d2_dxy2 = function (w) { # Diffusion terms in x and y dimensions
 
 set.seed(20)  # Making sure the random number generator gives the same values
 
+TimeRec=MusselRec=vector(length=NoFrames); # Mean mussel biomass
+
 # Initial values for the algae and the musels
 A[,]=0.5 
 M=100+(matrix(ncol=m,nrow=m,data=runif(m*m))<=frac)*10 
@@ -94,6 +96,7 @@ M=100+(matrix(ncol=m,nrow=m,data=runif(m*m))<=frac)*10
 # Some counters used in the loop below
 Time =  0          # Begin time 
 ii   =  1e6        # Setting the plot counter to max, so that drawing start immediately
+jj = 0; # The counter needed for recording mussel biomass during the run
 
 # --- Setting up the figure ---------------------------------------------------
 
@@ -135,6 +138,10 @@ while (Time<=EndTime){   # Here the time loop starts
        dev.hold()  # Put all updating on hold  
 
        ii=0    # Resetting the plot counter
+       jj=jj+1 # Increasing the Recorder counter
+       
+       TimeRec[jj] = Time*Phi/24 # Store the time in days
+       MusselRec[jj] = mean(M)   # Store mean mussel biomass 
 
       } 
 
@@ -143,4 +150,12 @@ while (Time<=EndTime){   # Here the time loop starts
  
 } # Here the time loop ends
 
+# Plot the musselbiomass over time
+#plot(MusselRec)
+print(paste("Mean biomass :", round(mean(M))))
+Consumption = c/h*A*M
+Mortality = d_M*k_M/(M + k_M)*M
+print(paste("Mean biomass :", mean(M)))
+print(paste("Consumption :", mean(Consumption)/mean(M)))
+print(paste("Mortality :", mean(Mortality)/mean(M)))
 
